@@ -1,0 +1,25 @@
+Jul 02, 2024 1:10:55 PM com.pixelly.chatapp.ChatServer setupServer
+SEVERE: Server exception: server.keystore (No such file or directory)
+java.io.FileNotFoundException: server.keystore (No such file or directory)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(Unknown Source)
+	at java.base/java.io.FileInputStream.<init>(Unknown Source)
+	at java.base/java.io.FileInputStream.<init>(Unknown Source)
+	at com.pixelly.chatapp.ChatServer.createSSLServerSocketFactory(ChatServer.java:51)
+	at com.pixelly.chatapp.ChatServer.setupServer(ChatServer.java:32)
+	at com.pixelly.chatapp.ChatServer.main(ChatServer.java:16)
+
+Jul 02, 2024 1:12:58 PM com.pixelly.chatapp.ChatServer setupServer
+SEVERE: Server exception: keystore password was incorrect
+java.io.IOException: keystore password was incorrect
+	at java.base/sun.security.pkcs12.PKCS12KeyStore.engineLoad(Unknown Source)
+	at java.base/sun.security.util.KeyStoreDelegator.engineLoad(Unknown Source)
+	at java.base/java.security.KeyStore.load(Unknown Source)
+	at com.pixelly.chatapp.ChatServer.createSSLServerSocketFactory(ChatServer.java:51)
+	at com.pixelly.chatapp.ChatServer.setupServer(ChatServer.java:32)
+	at com.pixelly.chatapp.ChatServer.main(ChatServer.java:16)
+Caused by: java.security.UnrecoverableKeyException: failed to decrypt safe contents entry: javax.crypto.BadPaddingException: Given final block not properly padded. Such issues can arise if a bad key is used during decryption.
+	... 6 more
+
+Jul 02, 2024 1:14:11 PM com.pixelly.chatapp.ChatServer setupServer
+INFO: SSL Chat Server is listening on port 1234
