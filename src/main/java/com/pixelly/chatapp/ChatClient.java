@@ -1,6 +1,7 @@
 package com.pixelly.chatapp;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -66,7 +67,8 @@ public class ChatClient extends Application {
 
             String serverMessage;
             while ((serverMessage = reader.readLine()) != null) {
-                messageArea.appendText(serverMessage + "\n");
+                String finalServerMessage = serverMessage;
+                Platform.runLater(() -> messageArea.appendText("Server: " + finalServerMessage + "\n"));
             }
         } catch (ConnectException e) {
             logger.log(Level.SEVERE, "Connection to server failed: " + e.getMessage(), e);
@@ -102,7 +104,10 @@ public class ChatClient extends Application {
         String message = inputField.getText();
         if (!message.isEmpty()) {
             writer.println(message);
-            inputField.clear();
+            Platform.runLater(() -> {
+                messageArea.appendText("You: " + message + "\n");
+                inputField.clear();
+            });
         }
     }
 

@@ -9,6 +9,13 @@
             "name": "ChatServer",
             "request": "launch",
             "mainClass": "com.pixelly.chatapp.ChatServer",
+            "projectName": "ChatApp"
+        },
+        {
+            "type": "java",
+            "name": "ChatServer",
+            "request": "launch",
+            "mainClass": "com.pixelly.chatapp.ChatServer",
             "projectName": "chatapp"
         },
         {
@@ -16,7 +23,7 @@
             "name": "Launch ChatClient",
             "request": "launch",
             "mainClass": "com.pixelly.chatapp.ChatClient",
-            "vmArgs": "--module-path /home/dssali/javafx-sdk/javafx-sdk-21.0.3/javafx-sdk-21.0.3/lib --add-modules javafx.controls,javafx.fxml",
+            "vmArgs": "--module-path \"C:\\javafx-sdk-21.0.3-windows\\lib\" --add-modules javafx.controls,javafx.fxml",
             "cwd": "${workspaceFolder}"
         }
     ]
