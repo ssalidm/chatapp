@@ -15,7 +15,7 @@ import javax.net.ssl.TrustManagerFactory;
 import java.io.*;
 import java.net.ConnectException;
 import java.security.KeyStore;
-
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,7 +32,8 @@ public class ChatClient extends Application {
     @Override
     public void start(Stage primaryStage) {
         setupUI(primaryStage);
-        new Thread(this::initializeSSLConnection).start();
+        // Prompt for username before establishing connection
+        getUsername();
     }
 
     private void setupUI(Stage primaryStage) {
@@ -57,12 +58,26 @@ public class ChatClient extends Application {
         primaryStage.show();
     }
 
-    private void initializeSSLConnection() {
+    private void getUsername() {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Username");
+        dialog.setHeaderText("Enter your username:");
+        dialog.setContentText("Username:");
+
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(username -> {
+            // Set the username and start the connection
+            new Thread(() -> initializeSSLConnection(username)).start();
+        });
+    }
+
+    private void initializeSSLConnection(String username) {
         try {
             SSLSocketFactory factory = createSSLSocketFactory();
             socket = (SSLSocket) factory.createSocket("localhost", 1234);
             writer = new PrintWriter(socket.getOutputStream(), true);
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            writer.println(username);  // Send the username to the server
             connected = true;
 
             String serverMessage;

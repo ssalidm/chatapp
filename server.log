@@ -16,3 +16,13 @@ Jul 03, 2024 9:45:49 PM com.pixelly.chatapp.ChatServer setupServer
 INFO: New client connected: /127.0.0.1:56727
 Jul 03, 2024 9:50:20 PM com.pixelly.chatapp.ChatServer setupServer
 INFO: SSL Chat Server is listening on port 1234
+Jul 03, 2024 10:27:40 PM com.pixelly.chatapp.ChatServer setupServer
+INFO: SSL Chat Server is listening on port 1234
+Jul 03, 2024 10:28:22 PM com.pixelly.chatapp.ChatServer setupServer
+INFO: New client connected: /127.0.0.1:57155
+Jul 03, 2024 10:48:56 PM com.pixelly.chatapp.ChatServer setupServer
+INFO: SSL Chat Server is listening on port 1234
+Jul 03, 2024 10:50:03 PM com.pixelly.chatapp.ChatServer setupServer
+INFO: New client connected: /127.0.0.1:57290
+Jul 03, 2024 10:50:28 PM com.pixelly.chatapp.ChatServer setupServer
+INFO: New client connected: /127.0.0.1:57299

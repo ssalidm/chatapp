@@ -9,6 +9,7 @@ class ClientHandler implements Runnable {
     private SSLSocket socket;
     private PrintWriter writer;
     private BufferedReader reader;
+    private String username;
 
     public ClientHandler(SSLSocket socket) {
         this.socket = socket;
@@ -17,6 +18,7 @@ class ClientHandler implements Runnable {
     @Override
     public void run() {
         setupStreams();
+        readAndstoreUsername();
         handleClientMessage();
     }
 
@@ -29,12 +31,24 @@ class ClientHandler implements Runnable {
         }
     }
 
+    private void readAndstoreUsername() {
+        try {
+            // Read the username from the client
+            this.username = reader.readLine();
+            String joinMessage = this.username + " has joined the chat.";
+            logger.info(joinMessage);
+            ChatServer.broadcast(joinMessage, this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void handleClientMessage() {
         try {
             String clientMessage;
             while ((clientMessage = reader.readLine()) != null) {
-                String message = "Client " + socket.getRemoteSocketAddress() + ": " + clientMessage;
-                logger.info(message);  // Log the received message
+                String message = this.username + ": " + clientMessage;
+                logger.info(message); // Log the received message
                 ChatServer.broadcast(message, this);
             }
         } catch (IOException e) {
@@ -46,16 +60,22 @@ class ClientHandler implements Runnable {
 
     private void closeConnection() {
         try {
-            if (reader != null) reader.close();
-            if (writer != null) writer.close();
-            if (socket != null) socket.close();
+            if (reader != null)
+                reader.close();
+            if (writer != null)
+                writer.close();
+            if (socket != null)
+                socket.close();
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Failed to close socket: " + e.getMessage(), e);
         }
         ChatServer.removeClient(this);
+        String leaveMessage = this.username + " has left the chat.";
+        logger.info(leaveMessage);
+        ChatServer.broadcast(leaveMessage, this);
     }
 
     void sendMessage(String message) {
         writer.println(message);
-    }    
+    }
 }
