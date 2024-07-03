@@ -83,7 +83,7 @@ public class ChatClient extends Application {
             String serverMessage;
             while ((serverMessage = reader.readLine()) != null) {
                 String finalServerMessage = serverMessage;
-                Platform.runLater(() -> messageArea.appendText("Server: " + finalServerMessage + "\n"));
+                Platform.runLater(() -> messageArea.appendText(finalServerMessage + "\n"));
             }
         } catch (ConnectException e) {
             logger.log(Level.SEVERE, "Connection to server failed: " + e.getMessage(), e);
@@ -91,7 +91,7 @@ public class ChatClient extends Application {
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error establishing connection: " + e.getMessage(), e);
         } finally {
-            closeConeection(); // Close resources in case of any exception
+            closeConnection(); // Close resources in case of any exception
         }
     }
 
@@ -126,7 +126,7 @@ public class ChatClient extends Application {
         }
     }
 
-    private void closeConeection() {
+    private void closeConnection() {
         try {
             if (reader != null)
                 reader.close();
@@ -138,6 +138,7 @@ public class ChatClient extends Application {
             logger.log(Level.SEVERE, "Error closing connection: " + e.getMessage(), e);
         }
         connected = false;
+        Platform.runLater(() -> messageArea.appendText("Disconnected from server.\n"));
     }
 
     public static void main(String[] args) {

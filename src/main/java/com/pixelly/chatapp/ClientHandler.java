@@ -47,7 +47,7 @@ class ClientHandler implements Runnable {
         try {
             String clientMessage;
             while ((clientMessage = reader.readLine()) != null) {
-                String message = this.username + ": " + clientMessage;
+                String message = this.username + ":  " + clientMessage;
                 logger.info(message); // Log the received message
                 ChatServer.broadcast(message, this);
             }
