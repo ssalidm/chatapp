@@ -46,7 +46,9 @@ class ClientHandler implements Runnable {
 
     private void closeConnection() {
         try {
-            socket.close();
+            if (reader != null) reader.close();
+            if (writer != null) writer.close();
+            if (socket != null) socket.close();
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Failed to close socket: " + e.getMessage(), e);
         }
