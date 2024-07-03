@@ -23,3 +23,7 @@ Caused by: java.security.UnrecoverableKeyException: failed to decrypt safe conte
 
 Jul 02, 2024 1:14:11 PM com.pixelly.chatapp.ChatServer setupServer
 INFO: SSL Chat Server is listening on port 1234
+Jul 02, 2024 7:06:02 PM com.pixelly.chatapp.ChatServer setupServer
+INFO: SSL Chat Server is listening on port 1234
+Jul 03, 2024 2:30:14 PM com.pixelly.chatapp.ChatServer setupServer
+INFO: SSL Chat Server is listening on port 1234

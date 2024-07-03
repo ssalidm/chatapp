@@ -33,7 +33,8 @@ class ClientHandler implements Runnable {
         try {
             String clientMessage;
             while ((clientMessage = reader.readLine()) != null) {
-                String message = "Client " + this + ": " + clientMessage;
+                String message = "Client " + socket.getRemoteSocketAddress() + ": " + clientMessage;
+                logger.info(message);  // Log the received message
                 ChatServer.broadcast(message, this);
             }
         } catch (IOException e) {

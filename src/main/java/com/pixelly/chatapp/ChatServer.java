@@ -9,7 +9,7 @@ import javax.net.ssl.*;
 public class ChatServer {
     private static final int PORT = 1234;
     private static Set<ClientHandler> clientHandlers = new HashSet<>();
-    static final Logger logger = Logger.getLogger(ChatServer.class.getName());
+    private static final Logger logger = Logger.getLogger(ChatServer.class.getName());
 
     public static void main(String[] args) {
         setupLogger();
@@ -18,10 +18,10 @@ public class ChatServer {
 
     private static void setupLogger() {
         try {
-            FileHandler fileHandler = new FileHandler("server.log", true);
+            FileHandler fileHandler = new FileHandler("server.log", true); // Append to existing log
             fileHandler.setFormatter(new SimpleFormatter());
             logger.addHandler(fileHandler);
-            logger.setLevel(Level.ALL);
+            logger.setLevel(Level.ALL); // Log all levels (INFO, WARNING, SEVERE, etc.)
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,8 +35,11 @@ public class ChatServer {
 
                 while (true) {
                     SSLSocket socket = (SSLSocket) serverSocket.accept();
+                    logger.info("New client connected: " + socket.getRemoteSocketAddress());
                     ClientHandler clientHandler = new ClientHandler(socket);
-                    clientHandlers.add(clientHandler);
+                    synchronized (clientHandlers) {
+                        clientHandlers.add(clientHandler);
+                    }
                     new Thread(clientHandler).start();
                 }
             }
